@@ -93,7 +93,7 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
 
     def page_pagination(self, qs):
         """Pagination"""
-        element = Paginator(qs, 1)
+        element = Paginator(qs, 9)
         page_num = self.request.GET.get('page', 1)
 
         try:

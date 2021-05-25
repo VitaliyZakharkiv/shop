@@ -27,10 +27,10 @@ class MakeOrderView(CartMixin, View):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = OrderForm(request.POST or None)
-        customer = Customer.objects.filter(user=request.user).first()
+        # customer = Customer.objects.filter(user=request.user).first()
         if form.is_valid():
             order = form.save(commit=False)
-            order.customer = customer
+            order.customer = self.customer
             order.first_name = form.cleaned_data['first_name']
             order.last_name = form.cleaned_data['last_name']
             order.phone = form.cleaned_data['phone']
@@ -40,9 +40,14 @@ class MakeOrderView(CartMixin, View):
             order.save()
             self.cart.in_order = True
             self.cart.save()
+            self.calc_quantity_in_stock(self.cart.products.all())
             order.cart = self.cart
             order.save()
-            customer.order.add(order)
+            self.customer.order.add(order)
             return redirect('/')
         return redirect('checkout')
 
+    def calc_quantity_in_stock(self, cart_products):
+        for i in cart_products:
+            i.product.quantity_in_stock -= i.count
+            i.product.save()

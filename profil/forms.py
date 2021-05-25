@@ -23,7 +23,7 @@ class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введіть логін'}))
     first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': "Введіть ім'я"}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введіть прізвище'}))
-    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введіть пошту'}))
+    email = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введіть пошту', 'type': 'email'}))
     password1 = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Введіть пароль'}))
     password2 = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Підтвердіть пароль'}))
 

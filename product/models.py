@@ -34,6 +34,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     image = models.ImageField(upload_to='images_product/', verbose_name="Фото", null=True, blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, default=1, verbose_name="Ціна")
+    quantity_in_stock = models.PositiveIntegerField(verbose_name="Кількість на складі", default=0)
     date = models.DateTimeField(verbose_name="Дата", auto_now_add=True)
 
     def __str__(self):

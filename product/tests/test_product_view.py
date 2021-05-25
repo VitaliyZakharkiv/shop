@@ -17,6 +17,7 @@ class TestProductView(TestCase):
             title='product',
             slug='product',
             category=self.category,
+            quantity_in_stock=20,
             image=SimpleUploadedFile(name='test_image.jpg', content=b'', content_type='image/jpeg'),
             price=Decimal("1000.00")
         )

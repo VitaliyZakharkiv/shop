@@ -33,7 +33,7 @@
                                     <td>
                                         <form action="{% url 'change-count' product_model=i.product.category.slug slug=i.product.slug %}" method="post" class="change-count">
                                             {% csrf_token %}
-                                            <input type="number" name="count" value="{{ i.count }}" min="1" class="field-change">
+                                            <input type="number" name="count" value="{{ i.count }}" min="1" max="{{ i.product.quantity_in_stock }}" class="field-change">
                                             <br>
                                             <input type="submit" value="Змінити кількість" class="button-change">
                                         </form>

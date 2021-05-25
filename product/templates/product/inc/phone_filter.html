@@ -1,0 +1,45 @@
+{% load static %}
+<ul style="list-style: none;">
+    <li class="title-filter" onclick="showFilter('pb', 'pimg')" style="margin-bottom: -2px">Бренд
+        <img src="{% static 'product/img/strilka.png' %}" id="pimg" width="25px" style="margin-top: -4px; margin-left: -3px;"></li>
+    <div class="filter" id="pb">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Бренд' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('db', 'dimg')">Діагональ</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="dimg" width="25px"
+         style="margin-top: -28px; margin-left: 84px;"></li>
+    <div class="filter" id="db">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Діагональ' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('op', 'oimg')">Оператива</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="oimg" width="25px"
+         style="margin-top: -27px; margin-left: 90px;"></li>
+    <div class="filter" id="op">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Оператива' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+</ul>

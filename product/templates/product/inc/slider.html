@@ -1,0 +1,10 @@
+<div class="slide fade">
+    <img src="{{ product.image.url }}"
+         class="img1">
+</div>
+{% for i in product.shortimgproduct.all %}
+    <div class="slide fade">
+        <img src="{{ i.img.url }}"
+             class="img1">
+    </div>
+{% endfor %}

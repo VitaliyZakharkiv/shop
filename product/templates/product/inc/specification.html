@@ -1,0 +1,10 @@
+<table>
+    <tbody>
+       {% for i in product.spec_set.all %}
+        <tr class="info">
+            <td class="item">{{ i.key }}</td>
+            <td class="value">{{ i.value }}</td>
+        </tr>
+       {% endfor %}
+    </tbody>
+</table>

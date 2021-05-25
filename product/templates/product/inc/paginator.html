@@ -1,0 +1,84 @@
+<div class="paginator">
+    {% if find %}
+
+
+        {% if find.paginator.num_pages > 1 %}
+            {% for i in find.paginator.page_range %}
+                {% if find.number == i %}
+                    <a href="{% url 'category' category.slug %}?{% if q %}{{ q }}{% endif %}page={{ i }}"
+                       class="button-num active">{{ i }}</a>
+                {% elif i > find.number|add:-3 and i < find.number|add:3 %}
+                    <a href="{% url 'category' category.slug %}?{% if q %}{{ q }}{% endif %}page={{ i }}"
+                       class="button-num">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+
+    {% elif filter_product %}
+        {% if filter_product.paginator.num_pages > 1 %}
+            {% if filter_product.has_previous %}
+                <a href="{% url 'category' category.slug %}?{{ q }}page={{ 1 }}"
+               class="button-pag">&laquo;</a>
+
+                <a href="{% url 'category' category.slug %}?
+                        {{ q }}page={{ filter_product.previous_page_number }}"
+                   class="button-pag">&#8249;</a>
+            {% endif %}
+
+            {% for i in filter_product.paginator.page_range %}
+                {% if filter_product.number == i %}
+                    <a href="{% url 'category' category.slug %}?{% if q %}{{ q }}{% endif %}page={{ i }}"
+                       class="button-num active">{{ i }}</a>
+                {% elif i > filter_product.number|add:-3 and i < filter_product.number|add:3 %}
+                    <a href="{% url 'category' category.slug %}?{% if q %}{{ q }}{% endif %}page={{ i }}"
+                       class="button-num">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if filter_product.has_next %}
+                <a href="{% url 'category' category.slug %}?
+                        {{ q }}page={{ filter_product.next_page_number }}"
+                   class="button-pag">&#8250;</a>
+
+                <a href="{% url 'category' category.slug %}?
+                    {{ q }}page={{ filter_product.paginator.num_pages }}"
+                   class="button-pag">&raquo;</a>
+
+            {% endif %}
+        {% endif %}
+
+
+    {% else %}
+        {% if products.paginator.num_pages > 1 %}
+            {% if products.has_previous %}
+                <a href="{% url 'category' category.slug %}?page={{ 1 }}"
+                   class="button-pag">&laquo;</a>
+
+
+                <a href="{% url 'category' category.slug %}?page={{ products.previous_page_number }}"
+                   class="button-pag">&#8249;</a>
+            {% endif %}
+
+            {% for i in products.paginator.page_range %}
+                {% if products.number == i %}
+                    <a href="{% url 'category' category.slug %}?page={{ i }}"
+                       class="button-num active">{{ i }}</a>
+                {% elif i > products.number|add:-3 and i < products.number|add:3 %}
+                    <a href="{% url 'category' category.slug %}?page={{ i }}"
+                       class="button-num">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if products.has_next %}
+                <a href="{% url 'category' category.slug %}?page={{ products.next_page_number }}"
+                   class="button-pag">&#8250;</a>
+
+                <a href="{% url 'category' category.slug %}?page={{ products.paginator.num_pages }}"
+                   class="button-pag">&raquo;</a>
+
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
+</div>

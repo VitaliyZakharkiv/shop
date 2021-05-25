@@ -1,0 +1,76 @@
+{% extends 'product/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'product/css/detail_page.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'product/css/header_footer.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="navigation">
+            <div class="nvg">
+                <a href="{% url 'home' %}">Головна</a> /
+                <span class="category-name">{{ category.name }}</span>
+            </div>
+        </div>
+        <div class="get-product">
+            <div class="new-cart">
+                <div class="new-title">{{ category.name }}</div>
+
+                <div class="five-cart">
+
+                    {% if find %}
+                        {% for p in find %}
+                            {% include 'product/inc/cart_product.html' %}
+                        {% endfor %}
+
+                    {% elif filter_product %}
+                        {% for p in filter_product %}
+                            {% include 'product/inc/cart_product.html' %}
+                        {% endfor %}
+
+                    {% elif products %}
+                        {% for p in products %}
+                            {% include 'product/inc/cart_product.html' %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+
+            {% include 'product/inc/paginator.html' %}
+            </div>
+
+            <div class="sidebar">
+                <form action="{% url 'category' category.slug %}" method="get">
+                    <input type="text" name="q" class="search" id="search" placeholder="Пошук товару...">
+                    {% if category.slug == "phone" %}
+                        {% include 'product/inc/phone_filter.html' %}
+                    {% elif category.slug == "notebook" %}
+                        {% include 'product/inc/notebook_filter.html' %}
+                    {% elif category.slug == "tablet" %}
+                        {% include 'product/inc/tablet_filter.html' %}
+                    {% elif category.slug == "pc" %}
+                        {% include 'product/inc/pc_filter.html' %}
+                    {% endif %}
+                    <input type="submit" class="button-search">
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+    <script type="text/javascript" src="{% static 'product/js/detail_page.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        var availableTags = {{ name|safe }};
+        $(function () {
+            $("#search").autocomplete({
+                source: availableTags
+            });
+        });
+    </script>
+{% endblock %}

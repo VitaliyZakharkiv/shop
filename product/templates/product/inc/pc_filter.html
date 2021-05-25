@@ -1,0 +1,58 @@
+{% load static %}
+<ul style="list-style: none;">
+    <li class="title-filter" onclick="showFilter('pcb', 'pcimg')">Бренд</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="pcimg" width="25px" style="margin-top: -27px; margin-left: 58px;"></li>
+    <div class="filter" id="pcb">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Бренд' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('pct', 'timg')">Тип</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="timg" width="25px" style="margin-top: -28px; margin-left: 40px;"></li>
+    <div class="filter" id="pct">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Тип' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('pcp', 'pcpimg')">Процесор</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="pcpimg" width="25px" style="margin-top: -28px; margin-left: 83px;"></li>
+    <div class="filter" id="pcp">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Процесор' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('pcv', 'vimg')">Відео карта</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="vimg" width="25px" style="margin-top: -28px; margin-left: 98px;"></li>
+    <div class="filter" id="pcv">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Відео карта' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+</ul>
+

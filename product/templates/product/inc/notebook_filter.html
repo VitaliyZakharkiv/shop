@@ -1,0 +1,61 @@
+{% load static %}
+<ul style="list-style: none;">
+   <li class="title-filter" onclick="showFilter('nb', 'nimg')">Бренд</li>
+   <img src="{% static 'product/img/strilka.png' %}" id="nimg" width="25px" style="margin-top: -28px; margin-left: 58px;"></li>
+   <div class="filter" id="nb">
+    {% for b in specifications %}
+            {% if b.spec__key  == 'Бренд' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+    {% endfor %}
+   </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('nd', 'dimg')">Діагональ</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="dimg" width="25px"
+         style="margin-top: -28px; margin-left: 83px;"></li>
+    <div class="filter" id="nd">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Діагональ' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('no', 'noimg')">ОС</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="noimg" width="25px" style="margin-top: -28px; margin-left: 32px;"></li>
+    <div class="filter" id="no">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'ОС' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <br>
+
+    <li class="title-filter" onclick="showFilter('nc', 'kimg')">Кількість ядер</li>
+    <img src="{% static 'product/img/strilka.png' %}" id="kimg" width="25px"
+         style="margin-top: -28.5px; margin-left: 111px;"></li>
+    <div class="filter" id="nc">
+        {% for b in specifications %}
+            {% if b.spec__key  == 'Кількість ядер' %}
+                <li class="item-filter">
+                    <input type="checkbox" name="specification" value="{{ b.spec__value }}">
+                    <span>{{ b.spec__value }}</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </div>
+</ul>
+
+

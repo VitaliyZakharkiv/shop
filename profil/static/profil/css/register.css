@@ -1,0 +1,264 @@
+/*  CONTENT  */
+
+.login1{
+	position: relative;
+	margin-right: auto;
+	margin-left: 40%;
+	max-width: 320px;
+	margin-top: 70px;
+}
+
+.login1 h1{
+	font-family: 'Rubik', sans-serif;
+	font-size: 20px;
+	width: 320px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #484848;
+}
+
+#id_username,
+#id_first_name,
+#id_last_name,
+#id_email,
+#id_password1,
+#id_password2{
+	text-align: center;
+    border: 1.5px solid #787878;
+    font-size: 16px;
+	width: 100%;
+	margin-top: 20px;
+    padding: 5px 5px;
+	border-radius: 2px;
+}
+
+#id_username:focus,
+#id_first_name:focus,
+#id_last_name:focus,
+#id_email:focus,
+#id_password1:focus,
+#id_password2:focus{
+	border-radius: 4px;
+	box-shadow: 1px 0 6px 0 blue;
+	transition: box-shadow .4s ease, border-radius .4s ease;
+}
+
+#id_username:not(focus),
+#id_first_name:not(focus),
+#id_last_name:not(focus),
+#id_email:not(focus),
+#id_password1:not(focus),
+#id_password2:not(focus) {
+	transition: box-shadow .5s ease, border-radius .5s ease;
+}
+
+.button-login{
+	margin-top: 12px;
+    background: royalblue;
+    color: #D3D3D3;
+    font-size: 16px;
+    padding: 8px 25px;
+    border-radius: 6px;
+    letter-spacing: 2px;
+    cursor: pointer;
+	margin-left: 110px;
+}
+
+.button-login:hover{
+    background: #0000FF;
+	transition: background .4s ease;
+}
+
+.button-login:not(hover){
+	transition: background .6s ease;
+}
+
+::-webkit-input-placeholder {
+	font-family: 'Rubik', sans-serif;
+}
+
+.icon{
+	position: absolute;
+	top: 262px;
+	left: 295px;
+	background-image: url("/static/profil/img/eye (4).png");
+	background-repeat: no-repeat;
+	width: 23px;
+	height: 23px;
+	cursor: pointer;
+}
+
+
+@media (max-width: 783px) {
+	.login1{
+		margin-left: 36%;
+	}
+}
+
+@media (max-width: 700px) {
+	.login1{
+		margin-left: 34%;
+	}
+}
+
+@media (max-width: 611px) {
+	.login1{
+		margin-left: 32%;
+	}
+}
+
+@media (max-width: 566px) {
+	.content {
+		padding: 0 0 0 0;
+	}
+	.login1 {
+		margin-left: 24%;
+	}
+}
+
+@media (max-width: 517px) {
+	#id_username,
+	#id_first_name,
+	#id_last_name,
+	#id_email,
+	#id_password1,
+	#id_password2{
+		width: 317px;
+	}
+	.icon{
+		left: 293px;
+	}
+}
+
+@media (max-width: 493px) {
+	.login1 {
+		margin-left: 19%;
+	}
+}
+
+@media (max-width: 438px) {
+	.login1 {
+		margin-left: 17%;
+	}
+}
+
+@media (max-width: 425px) {
+	.login1 {
+		margin-left: 14%;
+	}
+}
+
+@media (max-width: 408px) {
+	.login1 {
+		margin-left: 12%;
+	}
+}
+
+@media (max-width: 379px) {
+	.login1 {
+		margin-left: 10%;
+	}
+	#id_username,
+	#id_first_name,
+	#id_last_name,
+	#id_email,
+	#id_password1,
+	#id_password2 {
+		width: 90%;
+	}
+	.login1 h1 {
+		width: 289px;
+	}
+	.button-login {
+		font-size: 15px;
+		padding: 7px 23px;
+		margin-left: 97px;
+	}
+}
+
+@media (max-width: 379px) {
+	#id_username,
+	#id_first_name,
+	#id_last_name,
+	#id_email,
+	#id_password1,
+	#id_password2 {
+		width: 317px;
+	}
+}
+@media (max-width: 354px) {
+	.login1 {
+		margin-left: 10%;
+	}
+	#id_username,
+	#id_first_name,
+	#id_last_name,
+	#id_email,
+	#id_password1,
+	#id_password2 {
+		width: 288px;
+	}
+	.icon {
+		left: 264px;
+	}
+}
+
+@media (max-width: 342px) {
+	.login1 {
+		margin-left: 14%;
+	}
+	#id_username,
+	#id_first_name,
+	#id_last_name,
+	#id_email,
+	#id_password1,
+	#id_password2{
+		width: 250px;
+	}
+	.icon {
+		left: 226px;
+	}
+	.login1 h1 {
+		width: 250px;
+	}
+	.button-login {
+		margin-left: 81px;
+	}
+}
+
+@media (max-width: 310px) {
+	.login1 {
+		margin-left: 11%;
+	}
+}
+
+@media (max-width: 290px) {
+	#id_username,
+	#id_first_name,
+	#id_last_name,
+	#id_email,
+	#id_password1,
+	#id_password2{
+		width: 230px;
+	}
+	.icon {
+		left: 206px;
+	}
+	.login1 h1 {
+		width: 230px;
+	}
+	.button-login {
+		margin-left: 69px;
+	}
+}
+
+@media (max-width: 269px) {
+	.login1 {
+		margin-left: 9%;
+	}
+}
+
+@media (max-width: 260px) {
+	.login1 {
+		margin-left: 7%;
+	}
+}

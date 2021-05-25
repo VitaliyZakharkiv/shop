@@ -1,0 +1,25 @@
+{% extends 'product/base.html' %}
+{% load static %}
+
+{% block title %}Оформлення замовлення{% endblock %}
+
+{% block style %}
+     <link rel="stylesheet" type="text/css" href="{% static 'order/css/checkout.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'product/css/header_footer.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="block-form">
+        <h1 class="title-order">Оформлення замолення</h1>
+        <form action="{% url 'order' %}" method="post" class="form">
+            {% csrf_token %}
+            {{ form.first_name }}<br>
+            {{ form.last_name }}<br>
+            {{ form.phone }}<br>
+            {{ form.address }}<br>
+            {{ form.type_order }}<br>
+            {{ form.order_date }}<br>
+            <input type="submit" class="button-order" value="Оформити">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Source+Sans+Pro:wght@600&display=swap"
+          rel="stylesheet">
+    {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static 'product/css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'product/css/header_footer.css' %}">
+    {% endblock %}
+    <title>{% block title %}Головна{% endblock %}</title>
+</head>
+<body id="body">
+<div class="wrapper">
+    <header class="head">
+        <div class="header">
+
+            <a href="{% url 'home' %}">
+                <img src="{% static 'product/img/rosetka.png' %}" height="110" width="420" class="logo">
+            </a>
+
+
+            <div class="menu-items">
+
+                <div class="catalog">
+                    <ul>
+                        <li class="title">Каталог товарів
+                            <img src="{% static 'product/img/sort-down.png' %}" height="15" width="15">
+                            <ul class="product">
+                                <ul class="row1">
+
+                                    {% for c in categories %}
+                                        <a href="{% url 'category' c.slug %}">{{ c.name }}</a>
+                                    {% endfor %}
+
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    {% if user.is_authenticated %}
+                        <div style="float: right" class="cart1">
+
+                        <a href="{% url 'cart' %}">Корзина ({{ cart.count_product_in_cart.count__sum }})</a>
+
+                        </div>
+                    {% else %}
+                        <div style="float: right" class="cart1">
+                            <a href="{% url 'login' %}">Корзина (0)</a>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div class="account">
+                    {% if user.is_authenticated %}
+                        <div class="customer">
+                            <div class="user">
+                                <span>Привіт,</span>
+                                <a href="{% url 'profile' %}">{{ user.username }}</a>
+                            </div>
+                            <div class="exit">
+                                {% url 'logout' as logout_page %}
+                                <a href="{{ logout_page }}">Вийти</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="anonymos">
+                            <a href="{% url 'login' %}" class="login">Авторизація</a><span>|</span>
+                            <a href="{% url 'register' %}" class="register">Реєстрація</a>
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <div class="menu-for-mobile-screen" id="nms">
+                <nav class="nav-menu">
+                    <ul class="nav-menu-list">
+                        <li class="menu-item" onclick="showCategory('category-item', 'triangle')">Категорії<span id="triangle">&#9660;</span>
+                            <ul class="category-item" id="category-item">
+
+                                {% for c in categories %}
+                                    <li><a href="{% url 'category' c.slug %}">{{ c.name }}</a></li>
+                                {% endfor %}
+
+                            </ul>
+                        </li>
+                        <li class="menu-item"><a href="{% url 'cart' %}">Корзина</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="menu-item"><a href="{% url 'profile' %}">Профіль</a></li>
+                        {% endif  %}
+                        {% if user.is_authenticated %}
+                            {% url 'logout' as logout_page %}
+                            <li class="menu-item"><a href="{{ logout_page }}">Вийти</a></li>
+                        {% else %}
+                            <li class="menu-item"><a href="{% url 'login' %}">Авторизація</a></li>
+                            <li class="menu-item"><a href="{% url 'register' %}">Реєстрація</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="burger-menu" id="bg">
+                <span></span>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="content-row">
+        <div class="content">
+            {% block content %}
+                <div class="slider">
+                    <div class="slide fade">
+                        <img src="{% static 'product/img/slide-2.jpg' %}" style="width: 100%;" class="img1">
+                    </div>
+                    <div class="slide fade">
+                        <img src="{% static 'product/img/slide-3.jpg' %}" style="width: 100%;" class="img1">
+                    </div>
+                    <div class="slide fade">
+                        <img src="{% static 'product/img/slide-4.jpg' %}" style="width: 100%;" class="img1">
+                    </div>
+                    <div class="slide fade">
+                        <img src="{% static 'product/img/slide-5.jpg' %}" style="width: 100%;" class="img1">
+                    </div>
+                    <a class="pref" onclick="plus(-1)">&#10094</a>
+                    <a class="next" onclick="plus(1)">&#10095</a>
+                </div>
+                <div class="new-cart">
+                    <div class="new-title">Нові товари</div>
+                    <div class="four-cart">
+
+                        {% for p in product %}
+                            {% include 'product/inc/cart_product.html' %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <p>© 2021. Автор проєкта: Захарків Віталій vzaharkiv28@gmail.com</p>
+        </div>
+    </footer>
+
+</div>
+<script type="text/javascript" src="{% static 'product/js/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'product/js/touch_screen_menu.js' %}"></script>
+</body>
+</html>

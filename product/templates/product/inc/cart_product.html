@@ -12,9 +12,15 @@
     <p class="tp"><a href="{% url 'detail_product' category_id=p.category.slug slug=p.slug %}"
                      class="title-product">{{ p.title }}</a></p>
     <p class="price">{{ p.price }} грн</p>
-    <a href="{% url 'add-to-cart' product_model=p.category.slug slug=p.slug %}" class="buy">
-        В корзину
-        <img src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}"
-        ></a>
-
+    {% if p.quantity_in_stock == 0 %}
+        <a href="#" class="buy ">
+            В корзину
+            <img src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}">
+        </a>
+    {% else %}
+        <a href="{% url 'add-to-cart' product_model=p.category.slug slug=p.slug %}" class="buy">
+            В корзину
+            <img src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}">
+        </a>
+    {% endif %}
 </div>

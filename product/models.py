@@ -37,12 +37,12 @@ class Product(models.Model):
     quantity_in_stock = models.PositiveIntegerField(verbose_name="Кількість на складі", default=0)
     date = models.DateTimeField(verbose_name="Дата", auto_now_add=True)
 
-    def __str__(self):
-        return f'Продукт {self.title} Категорії {self.category}'
-
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукти"
+
+    def __str__(self):
+        return f'Продукт {self.title} Категорії {self.category}'
 
     def get_brand_product(self):
         return Product.objects.filter(

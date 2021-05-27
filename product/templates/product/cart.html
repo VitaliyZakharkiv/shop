@@ -13,7 +13,10 @@
         <div class="block-cart">
             <h2 class="title-cart">Ваша корзина</h2>
             {% if cart.products.count %}
+
+
                 <div class="row-table">
+
                     <table class="empty-cart">
                         <thead>
                             <tr class="info">
@@ -26,25 +29,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for i in cart.products.all %}
-                                <tr class="info" >
-                                    <td>{{ i.product.title }}</td>
-                                    <td><img src="{{ i.product.image.url }}"></td>
-                                    <td>
-                                        <form action="{% url 'change-count' product_model=i.product.category.slug slug=i.product.slug %}" method="post" class="change-count">
-                                            {% csrf_token %}
-                                            <input type="number" name="count" value="{{ i.count }}" min="1" max="{{ i.product.quantity_in_stock }}" class="field-change">
-                                            <br>
-                                            <input type="submit" value="Змінити кількість" class="button-change">
-                                        </form>
-                                    </td>
-                                    <td>{{ i.product.price }} грн</td>
-                                    <td>{{ i.all_price }} грн</td>
-                                    <td>
-                                        <a href="{% url 'delete-from-cart' product_model=i.product.category.slug slug=i.product.slug %}" class="delete">Видалити</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
+
+                        {% for i in cart.products.all %}
+                            <tr class="info">
+                                <td>{{ i.product.title }}</td>
+                                <td><img src="{{ i.product.image.url }}"></td>
+                                <td>
+                                    <form action="{% url 'change-count' product_model=i.product.category.slug slug=i.product.slug %}"
+                                          method="post" class="change-count">
+                                        {% csrf_token %}
+                                        <input type="number" name="count" value="{{ i.count }}" min="1"
+                                               max="{{ i.product.quantity_in_stock }}" class="field-change">
+                                        <br>
+                                        <input type="submit" value="Змінити кількість" class="button-change">
+                                    </form>
+                                </td>
+                                <td>{{ i.product.price }} грн</td>
+                                <td>{{ i.all_price }} грн</td>
+                                <td>
+                                    <a href="{% url 'delete-from-cart' product_model=i.product.category.slug slug=i.product.slug %}"
+                                       class="delete">Видалити</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+
                                 <tr class="final-date">
                                     <td colspan="2">
                                         <a href="{% url 'checkout' %}" class="checkout">Оформити замовлення</a>

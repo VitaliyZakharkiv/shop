@@ -23,11 +23,10 @@ class CheckoutView(LoginRequiredMixin, CartMixin, View):
 
 
 class MakeOrderView(CartMixin, View):
-    """Замовлення"""
+    """Замовлення*"""
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = OrderForm(request.POST or None)
-        # customer = Customer.objects.filter(user=request.user).first()
         if form.is_valid():
             order = form.save(commit=False)
             order.customer = self.customer

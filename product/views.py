@@ -35,8 +35,8 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
         context = super().get_context_data(**kwargs)
         self.category_slug = self.kwargs.get('slug')
 
-        context['specifications'] = self.set_list(Product.objects.filter(
-            category__slug=self.category_slug).values('spec__key', 'spec__value'))
+        context['specifications'] = Product.objects.filter(
+            category__slug=self.category_slug).values('spec__key', 'spec__value').distinct()
 
         context['cart'] = self.cart
         context['q'] = self.get_filter_date()
@@ -46,8 +46,9 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
             context['find'] = self.page_pagination(self.find())
         elif self.request.GET.getlist('specification'):
             context['filter_product'] = self.page_pagination(
-                self.set_list(Product.objects.select_related('category').filter(
-                    spec__value__in=self.request.GET.getlist('specification'), category__slug=self.category_slug)))
+                Product.objects.select_related('category').filter(
+                    spec__value__in=self.request.GET.getlist('specification'),
+                    category__slug=self.category_slug).distinct())
         else:
             context['products'] = self.page_pagination(Product.objects.select_related('category').filter(
                 category__slug=self.category_slug)[::-1])
@@ -69,15 +70,15 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
             name.append(i['title'])
         return name
 
-    def set_list(self, array):
-        """Unique fields filter"""
-        d = []
-        for i in list(array):
-            if i not in d:
-                d.append(i)
-            else:
-                continue
-        return d
+    # def set_list(self, array):
+    #     """Unique fields filter"""
+    #     d = []
+    #     for i in list(array):
+    #         if i not in d:
+    #             d.append(i)
+    #         else:
+    #             continue
+    #     return d
 
     def get_filter_date(self):
         """Get link"""
@@ -125,10 +126,18 @@ class CartView(LoginRequiredMixin, CartMixin, View):
 
     def get(self, request, *args, **kwargs):
         context = {
-            'cart': self.cart,
+            'cart': self.check_correct_basket(),
             'categories': Category.objects.all()
         }
         return render(request, 'product/cart.html', context)
+
+    def check_correct_basket(self):
+        """This method checks all products for stock"""
+        for i in self.cart.products.all():
+            if i.product.quantity_in_stock == 0:
+                self.cart.products.remove(i)
+        save_cart(self.cart)
+        return self.cart
 
 
 class AddToCartView(LoginRequiredMixin, CartMixin, View):
@@ -178,24 +187,8 @@ class ChangeCountView(CartMixin, View):
 
 
 class UserLogout(LogoutView):
-    """клас для кнопки виходу з профіля"""
+    """Class for profile exit"""
     next_page = reverse_lazy('login')
-
-
-# class AddReviewView(View):
-#     """Добавлення відгуку"""
-#     def post(self, request, *args, **kwargs):
-#         form = ReviewForm(request.POST)
-#         slug_product = kwargs.get('slug')
-#         product = Product.objects.filter(slug=slug_product).first()
-#         if form.is_valid():
-#             form = form.save(commit=False)
-#             form.review = request.POST.get('review')
-#             form.user = request.user
-#             form.product = product
-#             form.save()
-#
-#         return redirect(product.get_absolute_url())
 
 
 class AddReviewView(LoginRequiredMixin, CreateView):

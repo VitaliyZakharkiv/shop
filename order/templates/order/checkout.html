@@ -13,6 +13,11 @@
         <h1 class="title-order">Оформлення замолення</h1>
         <form action="{% url 'order' %}" method="post" class="form">
             {% csrf_token %}
+
+            {% for i in form.non_field_errors %}
+                <p>{{ i }}</p>
+            {% endfor %}
+
             {{ form.first_name }}<br>
             {{ form.last_name }}<br>
             {{ form.phone }}<br>

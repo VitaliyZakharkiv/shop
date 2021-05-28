@@ -39,8 +39,6 @@
                     {% endif %}
                 </div>
 
-
-            {% include 'product/inc/paginator.html' %}
             </div>
 
             <div class="sidebar">
@@ -60,6 +58,11 @@
             </div>
 
         </div>
+
+
+<div class="div" style="width: 100%; padding-left: 69px; display: inline-block;">
+{% include 'product/inc/paginator.html' %}
+</div>
 
     </div>
     <script type="text/javascript" src="{% static 'product/js/detail_page.js' %}"></script>

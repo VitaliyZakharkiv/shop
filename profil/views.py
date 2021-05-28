@@ -65,8 +65,10 @@ class ProfileView(LoginRequiredMixin, CartMixin, View):
     login_url = reverse_lazy("login")
 
     def get(self, request, *args, **kwargs):
-        customer = Customer.objects.filter(user=request.user).first()
-        order = Order.objects.filter(customer=customer).order_by('-create_date')
+        order = Order.objects.filter(customer=self.customer).select_related('cart')\
+            .prefetch_related('cart__products__related_cart',
+                              'cart__products__product')\
+            .order_by('-create_date')
         context = {
             'orders': order,
             'cart': self.cart,

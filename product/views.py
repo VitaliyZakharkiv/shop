@@ -1,3 +1,5 @@
+from typing import List
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
 from django.core.paginator import Paginator, EmptyPage
@@ -5,9 +7,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DetailView, CreateView
+
 from product.forms import ReviewForm
 from product.mixins import CartMixin, save_cart, CommonMixin
-from product.models import Category, Product, CartProduct, Review, Cart
+from product.models import Category, Product, CartProduct, Review
 
 
 class HomeView(CartMixin, View):
@@ -15,7 +18,6 @@ class HomeView(CartMixin, View):
     def get(self, request, *args, **kwargs):
         category = Category.objects.all()
         product = Product.objects.all().order_by('-id')[:4].select_related('category')
-
         context = {
             'product': product,
             'categories': category,
@@ -70,16 +72,6 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
             name.append(i['title'])
         return name
 
-    # def set_list(self, array):
-    #     """Unique fields filter"""
-    #     d = []
-    #     for i in list(array):
-    #         if i not in d:
-    #             d.append(i)
-    #         else:
-    #             continue
-    #     return d
-
     def get_filter_date(self):
         """Get link"""
         p = self.request.GET
@@ -92,7 +84,7 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
         link = ''.join(s)
         return link
 
-    def page_pagination(self, qs):
+    def page_pagination(self, qs: List[Product]):
         """Pagination"""
         element = Paginator(qs, 9)
         page_num = self.request.GET.get('page', 1)

@@ -41,6 +41,9 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукти"
 
+    def checking_availability_in_stock(self):
+        return self.quantity_in_stock > 0
+
     def __str__(self):
         return f'Продукт {self.title} Категорії {self.category}'
 

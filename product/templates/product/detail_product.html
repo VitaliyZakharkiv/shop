@@ -38,10 +38,17 @@
 
                     <div class="main_date">
                         <h2>{{ product.title }}</h2>
+
+                        {% if not product.checking_availability_in_stock %}
+                            <a href="#"
+                               class="buy" style="background: #b2b2b3">Відсутній</a>
+                        {% else %}
                             <a href="{% url 'add-to-cart' product_model=product.category.slug slug=product.slug %}"
                                class="buy">В корзину <img
                                     src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}"
                                     height="20" width="20" alt=""></a>
+                        {% endif %}
+
                         <p class="price"><span>Ціна</span> {{ product.price }}грн</p>
 
                         <p class="brand"><span>Бренд</span> {{ product.get_brand_product }}</p>

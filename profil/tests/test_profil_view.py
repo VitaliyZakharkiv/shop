@@ -3,7 +3,6 @@ from django.test import TestCase, Client, RequestFactory
 from django.urls import reverse
 
 from ..views import *
-from ..models import *
 from ..forms import UserRegisterForm, AuthUserForm
 
 User = get_user_model()

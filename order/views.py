@@ -1,10 +1,11 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic.base import View
 from django.db import transaction
 from product.mixins import CartMixin
-from product.models import Customer, Category
+from product.models import Category
 from .forms import OrderForm
 
 
@@ -44,6 +45,7 @@ class MakeOrderView(CartMixin, View):
             order.save()
             self.customer.order.add(order)
             return redirect('/')
+        messages.error(self.request, 'Дата не може бути раніше сьогоднішньої')
         return redirect('checkout')
 
     def calc_quantity_in_stock(self, cart_products):

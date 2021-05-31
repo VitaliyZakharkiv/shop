@@ -14,9 +14,14 @@
         <form action="{% url 'order' %}" method="post" class="form">
             {% csrf_token %}
 
-            {% for i in form.non_field_errors %}
-                <p>{{ i }}</p>
-            {% endfor %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
 
             {{ form.first_name }}<br>
             {{ form.last_name }}<br>
@@ -27,4 +32,5 @@
             <input type="submit" class="button-order" value="Оформити">
         </form>
     </div>
+    <script src="{% static 'order/js/checkout.js' %}"></script>
 {% endblock %}

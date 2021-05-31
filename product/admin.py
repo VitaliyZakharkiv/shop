@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import *
+from modeltranslation.admin import TranslationAdmin, TranslationInlineModelAdmin, TabbedTranslationAdmin
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TabbedTranslationAdmin):
     """Категорії"""
     list_display = ("id", "name")
     list_display_links = ("id", "name")
@@ -15,7 +16,7 @@ class ShortImgProductInlines(admin.TabularInline):
     extra = 0
 
 
-class SpecInlines(admin.TabularInline):
+class SpecInlines(TranslationInlineModelAdmin, admin.TabularInline):
     model = Spec
     fk_name = "product"
     extra = 0

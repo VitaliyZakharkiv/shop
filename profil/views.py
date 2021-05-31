@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +20,10 @@ class UserLogin(LoginView):
     template_name = 'profil/login.html'
     form_class = AuthUserForm
     success_url = reverse_lazy('home')
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Неправильно введені логін або пароль')
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,9 +70,9 @@ class ProfileView(LoginRequiredMixin, CartMixin, View):
     login_url = reverse_lazy("login")
 
     def get(self, request, *args, **kwargs):
-        order = Order.objects.filter(customer=self.customer).select_related('cart')\
+        order = Order.objects.filter(customer=self.customer).select_related('cart') \
             .prefetch_related('cart__products__related_cart',
-                              'cart__products__product')\
+                              'cart__products__product') \
             .order_by('-create_date')
         context = {
             'orders': order,

@@ -73,6 +73,33 @@
 	transition: background .4s ease;
 }
 
+.alert {
+    padding: 15px 11px;
+    color: white;
+    margin: 14px 0 -10px 0;
+    font-size: 13px;
+	background-color: #f54f48;
+	opacity: 1;
+	font-family: 'Rubik', sans-serif;
+	transition: opacity 0.6s;
+}
+
+.closebtn {
+	margin-left: 15px;
+	margin-top: -4px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.closebtn:hover {
+	color: black;
+}
+
 @media (max-width: 680px) {
 	.block-form {
 		margin-left: 27.205882%;
@@ -121,6 +148,12 @@
 	.button-order{
 		margin-left: 25.571428%;
 	}
+	.alert {
+		padding: 13px 7px;
+		margin: 14px 0 -10px 0;
+		font-size: 12px;
+		width: 90%;
+	}
 }
 
 @media (max-width: 325px) {
@@ -146,6 +179,14 @@
 	}
 	.button-order{
 		margin-left: 20.571428%;
+	}
+	.alert {
+		padding: 8px 4px;
+		font-size: 13px;
+		width: 80%;
+	}
+	.closebtn {
+		margin-top: 2px;
 	}
 }
 

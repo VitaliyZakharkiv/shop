@@ -1,6 +1,7 @@
 from datetime import date
 from django import forms
-# from django.core.exceptions import ValidationError
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 
 
 from .models import Order
@@ -22,6 +23,6 @@ class OrderForm(forms.ModelForm):
         date_order = self.cleaned_data['order_date']
         data_today = date.today()
         if data_today > date_order:
-            raise forms.ValidationError("Ви не можете це зробити")
+            raise ValidationError("Ви не можете це зробити")
 
         return date_order

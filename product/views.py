@@ -10,7 +10,7 @@ from django.views.generic import DetailView, CreateView
 
 from product.forms import ReviewForm
 from product.mixins import CartMixin, save_cart, CommonMixin
-from product.models import Category, Product, CartProduct, Review
+from product.models import Category, Product, CartProduct, Review, Cart
 
 
 class HomeView(CartMixin, View):
@@ -45,14 +45,14 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
         context['name'] = self.get_auto_name()
 
         if self.find():
-            context['find'] = self.page_pagination(self.find())
+            context['find'] = self._page_pagination(self.find())
         elif self.request.GET.getlist('specification'):
-            context['filter_product'] = self.page_pagination(
+            context['filter_product'] = self._page_pagination(
                 Product.objects.select_related('category').filter(
                     spec__value__in=self.request.GET.getlist('specification'),
                     category__slug=self.category_slug).distinct())
         else:
-            context['products'] = self.page_pagination(Product.objects.select_related('category').filter(
+            context['products'] = self._page_pagination(Product.objects.select_related('category').filter(
                 category__slug=self.category_slug)[::-1])
 
         return context
@@ -84,7 +84,7 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
         link = ''.join(s)
         return link
 
-    def page_pagination(self, qs: List[Product]):
+    def _page_pagination(self, qs: List[Product]):
         """Pagination"""
         element = Paginator(qs, 9)
         page_num = self.request.GET.get('page', 1)

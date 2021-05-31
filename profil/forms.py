@@ -6,7 +6,7 @@ from django.forms import PasswordInput
 
 class AuthUserForm(AuthenticationForm, forms.ModelForm):
     """Form for login in profile"""
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введіть логін'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Введіть логін або email'}))
     password = forms.CharField(widget=PasswordInput(attrs={'placeholder': 'Введіть пароль'}))
 
     class Meta:

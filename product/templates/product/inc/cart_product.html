@@ -12,8 +12,9 @@
     <p class="tp"><a href="{% url 'detail_product' category_id=p.category.slug slug=p.slug %}"
                      class="title-product">{{ p.title }}</a></p>
     <p class="price">{{ p.price }} грн</p>
+
     {% if not p.checking_availability_in_stock %}
-        <a href="#" class="buy" style="background: #b2b2b3">
+        <a href="#" class="buy" style="background: #7D26CD">
             Відсутній
         </a>
     {% else %}
@@ -22,4 +23,5 @@
             <img src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}">
         </a>
     {% endif %}
+
 </div>

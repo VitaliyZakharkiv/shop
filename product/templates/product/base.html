@@ -1,5 +1,6 @@
 {% load static %}
-
+{% load i18n %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'product/css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'product/css/header_footer.css' %}">
     {% endblock %}
-    <title>{% block title %}Головна{% endblock %}</title>
+    <title>{% block title %}{% trans 'Головна' %}{% endblock %}</title>
 </head>
 <body id="body">
 <div class="wrapper">
@@ -33,7 +34,7 @@
 
                 <div class="catalog">
                     <ul>
-                        <li class="title">Каталог товарів
+                        <li class="title">{% trans 'Каталог товарів' %}
                             <img src="{% static 'product/img/sort-down.png' %}" height="15" width="15">
                             <ul class="product">
                                 <ul class="row1">
@@ -44,6 +45,23 @@
 
                                 </ul>
                             </ul>
+                        </li>
+                        <li>
+                            <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                                <input name="next" type="hidden" value="{{ redirect_to }}">
+                                <select name="language">
+                                    {% get_current_language as LANGUAGE_CODE %}
+                                    {% get_available_languages as LANGUAGES %}
+                                    {% get_language_info_list for LANGUAGES as languages %}
+                                    {% for language in languages %}
+                                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                                                selected{% endif %}>
+                                            {{ language.name_local }} ({{ language.code }})
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <input type="submit" value="Go">
+                            </form>
                         </li>
                     </ul>
 

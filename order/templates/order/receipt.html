@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Title</title>
+</head>
+<body>
+
+<div class="model modal{{ order.id }}">
+    <h5 class="detail-order-title">detail order\Дата замовлення</h5>
+    <table class="detail-order-window" border="0.2">
+        <thead>
+        <tr style="padding-top: 5px;">
+            <th class="title-detail-product">name</th>
+            <th class="title-detail-product">img</th>
+            <th class="title-detail-product">price</th>
+            <th class="title-detail-product">count</th>
+            <th class="title-detail-product">all price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in order.cart.products.all %}
+            <tr style="padding-top: 5px;">
+                <td class="value">{{ i.product.title }}</td>
+                <td class="value"><img src="{{ i.product.image.path }}" style="width: 35px;"></td>
+                <td class="value">{{ i.product.price }} ua</td>
+                <td class="value">{{ i.count }}</td>
+                <td class="value">{{ i.all_price }} ua</td>
+            </tr>
+        {% endfor %}
+        <tr class="whole-price" style="padding-top: 5px;">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>all value</td>
+            {% if order.cart.discount %}
+                <td>{{ order.cart.discount }} ua</td>
+            {% else %}
+                <td>{{ order.cart.all_price }} ua</td>
+            {% endif %}
+        </tr>
+        </tbody>
+    </table>
+    <div class="date-customer">
+        <h4 class="date-title">buyer data</h4>
+        <p>name: {{ order.first_name }}</p>
+        <p>surname: {{ order.last_name }}</p>
+        <p>phone: {{ order.phone }}</p>
+        <p>addres: {{ order.address }}</p>
+    </div>
+</div>
+
+</body>
+</html>

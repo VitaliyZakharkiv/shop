@@ -1,6 +1,6 @@
 from django.views.generic.base import View
 from django.views.generic.detail import SingleObjectMixin
-from .models import Category, Cart, Customer, CartProduct
+from .models import Category, Cart, Customer
 from django.db import models
 
 
@@ -30,9 +30,10 @@ class CartMixin(View):
                 )
             self.customer = customer
         else:
-            cart = Cart.objects.filter(for_anonymous_user=True).first()
-            if not cart:
-                cart = Cart.objects.create(for_anonymous_user=True)
+            cart = 0
+            # cart = Cart.objects.filter(for_anonymous_user=True).first()
+            # if not cart:
+            #     cart = Cart.objects.create(for_anonymous_user=True)
         self.cart = cart
         return super().dispatch(request, *args, **kwargs)
 

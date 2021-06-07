@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 <div class="cart">
 
     {% if p.new_product %}
@@ -11,15 +13,15 @@
 
     <p class="tp"><a href="{% url 'detail_product' category_id=p.category.slug slug=p.slug %}"
                      class="title-product">{{ p.title }}</a></p>
-    <p class="price">{{ p.price }} грн</p>
+    <p class="price">{{ p.price }} {% trans 'грн' %}</p>
 
     {% if not p.checking_availability_in_stock %}
         <a href="#" class="buy" style="background: #7D26CD">
-            Відсутній
+            {% trans 'Відсутній' %}
         </a>
     {% else %}
         <a href="{% url 'add-to-cart' product_model=p.category.slug slug=p.slug %}" class="buy">
-            В корзину
+            {% trans 'В корзину' %}
             <img src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}">
         </a>
     {% endif %}

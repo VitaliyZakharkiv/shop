@@ -1,7 +1,9 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 
-{% block title %}Корзина{% endblock %}
+{% block title %}{% trans 'Корзина' %}{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'product/css/cart.css' %}">
@@ -11,7 +13,7 @@
 {% block content %}
     <div class="content">
         <div class="block-cart">
-            <h2 class="title-cart">Ваша корзина</h2>
+            <h2 class="title-cart">{% trans 'Ваша корзина' %}</h2>
             {% if cart.products.count %}
 
 
@@ -20,12 +22,12 @@
                     <table class="empty-cart">
                         <thead>
                             <tr class="info">
-                                <th>Назва</th>
-                                <th>Зображення</th>
-                                <th>Кількість</th>
-                                <th>Ціна</th>
-                                <th>Загальна ціна</th>
-                                <th>Дії</th>
+                                <th>{% trans 'Назва' %}</th>
+                                <th>{% trans 'Зображення' %}</th>
+                                <th>{% trans 'Кількість' %}</th>
+                                <th>{% trans 'Ціна' %}</th>
+                                <th>{% trans 'Загальна ціна' %}</th>
+                                <th>{% trans 'Дії' %}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,17 +40,25 @@
                                     <form action="{% url 'change-count' product_model=i.product.category.slug slug=i.product.slug %}"
                                           method="post" class="change-count">
                                         {% csrf_token %}
-                                        <input type="number" name="count" value="{{ i.count }}" min="1"
-                                               max="{{ i.product.quantity_in_stock }}" class="field-change">
+
+
+                                        {% if  i.count  <  i.product.quantity_in_stock  %}
+                                            <input type="number" name="count" value="{{ i.count }}" min="1"
+                                                   max="{{ i.product.quantity_in_stock }}" class="field-change">
+                                        {% else %}
+                                                <input type="number" name="count" value="{{ i.product.quantity_in_stock }}" min="1"
+                                                   max="{{ i.product.quantity_in_stock }}" class="field-change">
+                                        {% endif %}
+
                                         <br>
-                                        <input type="submit" value="Змінити кількість" class="button-change">
+                                        <input type="submit" value="{% trans 'Змінити кількість' %}" class="button-change">
                                     </form>
                                 </td>
-                                <td>{{ i.product.price }} грн</td>
-                                <td>{{ i.all_price }} грн</td>
+                                <td>{{ i.product.price }} {% trans 'грн' %}</td>
+                                <td>{{ i.all_price }} {% trans 'грн' %}</td>
                                 <td>
                                     <a href="{% url 'delete-from-cart' product_model=i.product.category.slug slug=i.product.slug %}"
-                                       class="delete">Видалити</a>
+                                       class="delete">{% trans 'Видалити' %}</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -56,39 +66,39 @@
 
                                 <tr class="final-date">
                                     <td colspan="2">
-                                        <a href="{% url 'checkout' %}" class="checkout">Оформити замовлення</a>
+                                        <a href="{% url 'checkout' %}" class="checkout">{% trans 'Оформити замовлення' %}</a>
                                     </td>
                                     <td></td>
-                                    <td>Кількість</td>
+                                    <td>{% trans 'Кількість' %}</td>
                                     <td>{{ cart.all_product }}</td>
                                     {% if cart.all_product >= 3 and cart.all_product <= 5%}
                                         <td class="field-price">
-                                            {{ cart.discount }} грн.
+                                            {{ cart.discount }} {% trans 'грн' %}.
                                             <img src="{% static 'product/img/Без імені.png' %}" width="30px">
                                         </td>
                                     {% elif cart.all_product > 5 %}
                                         <td class="field-price">
                                             <img src="{% static 'product/img/Без імені1.png' %}" width="30px">
-                                            {{ cart.discount }} грн.
+                                            {{ cart.discount }} {% trans 'грн' %}.
                                         </td>
                                     {% else %}
                                         <td>
-                                            {{ cart.all_price }} грн.
+                                            {{ cart.all_price }} {% trans 'грн' %}.
                                         </td>
                                     {% endif %}
                                 </tr>
                         </tbody>
                     </table>
                 {% else %}
-                    <table class="empty-cart">
+                    <table class="empty__cart">
                         <thead>
-                            <tr class="info">
-                                <th>Назва</th>
-                                <th>Зображення</th>
-                                <th>Кількість</th>
-                                <th>Ціна</th>
-                                <th>Загальна ціна</th>
-                                <th>Дії</th>
+                            <tr class="info__headers">
+                                <th>{% trans 'Назва' %}</th>
+                                <th>{% trans 'Зображення' %}</th>
+                                <th>{% trans 'Кількість' %}</th>
+                                <th>{% trans 'Ціна' %}</th>
+                                <th>{% trans 'Загальна ціна' %}</th>
+                                <th>{% trans 'Дії' %}</th>
                             </tr>
                         </thead>
                     </table>

@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  django:
+    build: .
+    container_name: django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/shop
+    ports:
+    - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - sqlite3
+      - redis
+
+  redis:
+    image: redis
+
+  celery:
+    build: .
+    command: celery worker --app=core --loglevel=info
+
+    volumes:
+      - .:/usr/src/shop
+    links:
+      - redis
+    depends_on:
+      - redis
+      - django
+
+
+    sqlite3:
+      image: nouchka/sqlite3:latest
+      stdin_open: true
+      tty: true
+      volumes:
+        - ./db/:/root/db/

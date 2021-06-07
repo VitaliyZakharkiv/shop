@@ -1,7 +1,9 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 
-{% block title %}Авторизація{% endblock %}
+{% block title %}{% trans 'Авторизація' %}{% endblock %}
 
 {% block style %}
      <link rel="stylesheet" type="text/css" href="{% static 'product/css/header_footer.css' %}">
@@ -21,13 +23,13 @@
                         {% endfor %}
                     {% endif %}
 
-                <h1>Авторизація</h1>
+                <h1>{% trans 'Авторизація' %}</h1>
                 <form method="post">
                     {% csrf_token %}
                     {{ form.username }}<br>
                     {{ form.password }}<br>
                     <span class="icon" id="password_icon" onclick="showPassword()"></span>
-                    <input type="submit" class="button-login" value="Увійти">
+                    <input type="submit" class="button-login" value="{% trans 'Увійти' %}">
                 </form>
             </div>
         </div>

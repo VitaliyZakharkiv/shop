@@ -330,9 +330,8 @@
 .add-review-form{
 	position: absolute;
 	width: 386px;
-	background: #ffffff;
+	background: #f0f0f0;
 	top: 50px;
-    /*left: 350px;*/
     left: 37%;
 	z-index: 150;
 	border-radius: 5px;
@@ -344,7 +343,7 @@
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	height: 34px;
-	background: #f2f5f5;
+	background: #dbdbdb;
 }
 
 .top-model .model-title{

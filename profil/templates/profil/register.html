@@ -1,7 +1,9 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 
-{% block title %}Реєстрація{% endblock %}
+{% block title %}{% trans 'Реєстрація' %}{% endblock %}
 
 {% block style %}
      <link rel="stylesheet" type="text/css" href="{% static 'profil/css/register.css' %}">
@@ -11,7 +13,7 @@
 {% block content %}
         <div class="content">
             <div class="login1">
-                <h1>Реєстрація</h1>
+                <h1>{% trans 'Реєстрація' %}</h1>
                 <form method="post">
                     {% csrf_token %}
                     {{ form.username }}<br>
@@ -21,7 +23,7 @@
                     {{ form.password1 }}<br>
                     {{ form.password2 }}<br>
                     <span class="icon" id="password_icon" onclick="showPasswords()"></span>
-                    <input type="submit" class="button-login" value="Увійти">
+                    <input type="submit" class="button-login" value="{% trans 'Увійти' %}">
                 </form>
             </div>
         </div>

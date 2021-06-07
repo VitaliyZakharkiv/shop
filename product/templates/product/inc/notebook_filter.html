@@ -1,10 +1,12 @@
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 <ul style="list-style: none;">
-   <li class="title-filter" onclick="showFilter('nb', 'nimg')">Бренд</li>
+   <li class="title-filter" onclick="showFilter('nb', 'nimg')">{% trans 'Бренд' %}</li>
    <img src="{% static 'product/img/strilka.png' %}" id="nimg" width="25px" style="margin-top: -28px; margin-left: 58px;"></li>
    <div class="filter" id="nb">
     {% for b in specifications %}
-            {% if b.spec__key  == 'Бренд' %}
+            {% if b.spec__key  == 'Бренд' or b.spec__key  == 'Brand' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>
@@ -14,12 +16,12 @@
    </div>
     <br>
 
-    <li class="title-filter" onclick="showFilter('nd', 'dimg')">Діагональ</li>
+    <li class="title-filter" onclick="showFilter('nd', 'dimg')">{% trans 'Діагональ' %}</li>
     <img src="{% static 'product/img/strilka.png' %}" id="dimg" width="25px"
          style="margin-top: -28px; margin-left: 83px;"></li>
     <div class="filter" id="nd">
         {% for b in specifications %}
-            {% if b.spec__key  == 'Діагональ' %}
+            {% if b.spec__key  == 'Діагональ екрану' or b.spec__key  == 'Screen diagonal' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>
@@ -29,11 +31,11 @@
     </div>
     <br>
 
-    <li class="title-filter" onclick="showFilter('no', 'noimg')">ОС</li>
+    <li class="title-filter" onclick="showFilter('no', 'noimg')">{% trans 'ОС' %}</li>
     <img src="{% static 'product/img/strilka.png' %}" id="noimg" width="25px" style="margin-top: -28px; margin-left: 32px;"></li>
     <div class="filter" id="no">
         {% for b in specifications %}
-            {% if b.spec__key  == 'ОС' %}
+            {% if b.spec__key  == 'ОС' or b.spec__key  == 'OS' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>
@@ -43,12 +45,12 @@
     </div>
     <br>
 
-    <li class="title-filter" onclick="showFilter('nc', 'kimg')">Кількість ядер</li>
+    <li class="title-filter" onclick="showFilter('nc', 'kimg')">{% trans 'Кількість ядер' %}</li>
     <img src="{% static 'product/img/strilka.png' %}" id="kimg" width="25px"
-         style="margin-top: -28.5px; margin-left: 111px;"></li>
+         style="margin-top: -28.5px; margin-left: 125px;"></li>
     <div class="filter" id="nc">
         {% for b in specifications %}
-            {% if b.spec__key  == 'Кількість ядер' %}
+            {% if b.spec__key  == 'Кількість ядер' or b.spec__key  == 'Number of cores' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>

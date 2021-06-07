@@ -38,12 +38,14 @@
 	color: #282828;
 }
 
+.empty__cart,
 .empty-cart{
 	border-collapse: collapse;
 	margin: 30px auto;
 	text-align: left;
 }
 
+.empty__cart thead tr th,
 .empty-cart thead tr th{
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -54,6 +56,7 @@
 	color: #383838;
 }
 
+.empty__cart thead .info__headers,
 .empty-cart thead .info,
 .empty-cart tbody .final-date{
   border-bottom: 1px solid #303030;
@@ -72,6 +75,7 @@
     left: 117px;
 }
 
+.empty__cart thead tr th:first-child,
 .empty-cart thead tr th:first-child{
 	padding-left: 0;
 }
@@ -157,6 +161,9 @@
 }
 
 @media (max-width: 928px) {
+	.empty__cart{
+		margin: 30px 0 0 140px;
+	}
 	.empty-cart{
 		margin: 30px 0 0 -12px;
 	}
@@ -177,6 +184,9 @@
 @media (max-width: 819px) {
 	.empty-cart tbody .info td{
 		padding-left: 22px;
+	}
+	.empty__cart{
+		margin: 30px 0 0 95px;
 	}
 	.empty-cart thead tr th{
 		padding-left: 20px;
@@ -201,6 +211,14 @@
 }
 
 @media (max-width: 735px) {
+	.empty__cart {
+		margin: 30px 0 0 55px;
+	}
+	.empty__cart thead tr th{
+		padding-left: 18px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
 	.empty-cart{
 		margin: 30px 0 0 -43px;
 	}
@@ -273,6 +291,21 @@
 	}
 }
 
+@media screen and (max-width: 576px) {
+	.empty__cart {
+		margin: 30px 0 0 22px;
+	}
+}
+
+@media screen and (max-width: 538px) {
+	.empty__cart thead tr th {
+		padding-left: 24px;
+		padding-top: 5px;
+		padding-bottom: 6px;
+		font-size: 17px;
+	}
+}
+
 @media screen and (max-width: 562px) {
 	.empty-cart {
 		width: 151%;
@@ -282,6 +315,71 @@
 @media screen and (max-width: 507px) {
 	.empty-cart {
 		width: 155%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.empty__cart thead tr th {
+		padding-left: 16px;
+		padding-top: 5px;
+		padding-bottom: 6px;
+		font-size: 16px;
+	}
+	.empty__cart {
+		margin: 30px 0 0 37px;
+	}
+}
+
+@media screen and (max-width: 455px) {
+	.empty__cart thead tr th {
+		padding-left: 9px;
+		padding-top: 5px;
+		padding-bottom: 6px;
+		font-size: 15px;
+	}
+	.empty__cart {
+		margin: 30px 0 0 37px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.empty__cart thead tr th {
+		padding-left: 8px;
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 371px) {
+	.empty__cart {
+		margin: 30px 0 0 15px;
+	}
+}
+
+@media screen and (max-width: 348px) {
+	.empty__cart thead tr th {
+		padding-left: 7px;
+		font-size: 13px;
+	}
+}
+
+@media screen and (max-width: 323px) {
+	.empty__cart thead tr th {
+    padding-left: 6px;
+    font-size: 13px;
+	}
+	.empty__cart {
+		margin: 9px 0 0 5px;
+	}
+}
+
+@media screen and (max-width: 307px) {
+	.empty__cart {
+		display: block;
+		overflow-y: scroll;
+		overflow-x: auto;
+		margin: 20px auto;
+		padding-right: 29px;
+		width: 147%;
 	}
 }
 

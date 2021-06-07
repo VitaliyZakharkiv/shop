@@ -6,7 +6,7 @@ from modeltranslation.admin import TranslationAdmin, TranslationInlineModelAdmin
 @admin.register(Category)
 class CategoryAdmin(TabbedTranslationAdmin):
     """Категорії"""
-    list_display = ("id", "name")
+    list_display = ("id", "name", "slug")
     list_display_links = ("id", "name")
     prepopulated_fields = {"slug": ("name",)}
 

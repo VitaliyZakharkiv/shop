@@ -1,9 +1,11 @@
 from django.db import models
+from django.db.models import Count
 from django.utils import timezone
 
 
 class Order(models.Model):
     """Замовлення"""
+    # *
     STATUS = (
         ('NEW', 'Новий'),
         ('PROGRESS', 'В обробці'),
@@ -26,6 +28,7 @@ class Order(models.Model):
     last_name = models.CharField(verbose_name='Прізвище', max_length=255)
     phone = models.CharField(verbose_name='Номер', max_length=255)
     address = models.CharField(verbose_name='Адрес', blank=True, null=True, max_length=255)
+    # *
     status = models.CharField(verbose_name='Статус', max_length=255, choices=STATUS, default=STATUS[0][1])
     type_order = models.CharField(verbose_name='Тип доставки', max_length=255, choices=TYPE_ORDER, default=TYPE_ORDER[0][1])
     create_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата замовлення')

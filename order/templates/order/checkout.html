@@ -1,7 +1,9 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 
-{% block title %}Оформлення замовлення{% endblock %}
+{% block title %}{% trans 'Оформлення замовлення' %}{% endblock %}
 
 {% block style %}
      <link rel="stylesheet" type="text/css" href="{% static 'order/css/checkout.css' %}">
@@ -10,7 +12,7 @@
 
 {% block content %}
     <div class="block-form">
-        <h1 class="title-order">Оформлення замолення</h1>
+        <h1 class="title-order">{% trans 'Оформлення замовлення' %}</h1>
         <form action="{% url 'order' %}" method="post" class="form">
             {% csrf_token %}
 
@@ -29,7 +31,7 @@
             {{ form.address }}<br>
             {{ form.type_order }}<br>
             {{ form.order_date }}<br>
-            <input type="submit" class="button-order" value="Оформити">
+            <input type="submit" class="button-order" value="{% trans 'Оформити' %}">
         </form>
     </div>
     <script src="{% static 'order/js/checkout.js' %}"></script>

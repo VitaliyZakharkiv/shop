@@ -79,6 +79,15 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	display: none;
 }
 
+.languages{
+	position: absolute;
+    left: 90px;
+}
+
+.languages input{
+	background: none;
+}
+
 .nav-menu{
 	font-family: 'Open Sans', sans-serif;
 	font-weight: bold;

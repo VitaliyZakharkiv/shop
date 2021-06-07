@@ -2,7 +2,7 @@
     <img src="{{ product.image.url }}"
          class="img1">
 </div>
-{% for i in product.shortimgproduct.all %}
+{% for i in product.shortimgproduct_set.all %}
     <div class="slide fade">
         <img src="{{ i.img.url }}"
              class="img1">

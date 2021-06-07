@@ -1,0 +1,18 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load static i18n %}
+
+{% block title %}{% trans 'Скачування чеку' %}{% endblock %}
+
+{% block style %}
+     <link rel="stylesheet" type="text/css" href="{% static 'product/css/header_footer.css' %}">
+     <link rel="stylesheet" type="text/css" href="{% static 'order/css/o.css' %}">
+{% endblock %}
+
+{% block content %}
+    <center>
+        <a href="{% url 'home' %}" class="action">{% trans 'На головну' %}</a>
+        <a href="{% url 'receipt' %}" class="action">{% trans 'Роздрукувати' %}</a>
+    </center>
+{% endblock %}

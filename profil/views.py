@@ -1,17 +1,30 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
+from django.core.mail import send_mail
+from django.db.models import Sum, Count, Case, When, F, Value, CharField
 from django.views.generic.base import View
 from django.views.generic import CreateView
 from django.shortcuts import render
 from django.urls import reverse_lazy
+
+# from .tasks import send_message_on_email
+from .service import sending_welcome_message_on_email_user
 from order.models import Order
 from product.mixins import CartMixin
-from product.models import Category, Customer
+from product.models import Category, Product
 from profil.forms import AuthUserForm, UserRegisterForm
 
+"""
+amount customer
+amount buy product
+amount order
+amount new product
+"""
 
 class UserLogin(LoginView):
     """
@@ -47,14 +60,13 @@ class RegisterLogin(CreateView):
         last_name = form.cleaned_data['last_name']
         first_name = form.cleaned_data['first_name']
         email = form.cleaned_data['email']
-        ins = form.save()
         auth = authenticate(username=username, first_name=first_name, last_name=last_name, password=password,
                             email=email)
+
         login(self.request, auth)
-        ins.email = email
-        ins.last_name = last_name
-        ins.first_name = first_name
-        ins.save()
+
+        sending_welcome_message_on_email_user(email)
+        # send_message_on_email.delay(email)
         return form_valid
 
     def get_context_data(self, **kwargs):
@@ -70,7 +82,9 @@ class ProfileView(LoginRequiredMixin, CartMixin, View):
     login_url = reverse_lazy("login")
 
     def get(self, request, *args, **kwargs):
-        order = Order.objects.filter(customer=self.customer).select_related('cart') \
+        self.test()
+        order = Order.objects.filter(customer=self.customer)\
+            .exclude(cart__all_price=None).select_related('cart') \
             .prefetch_related('cart__products__related_cart',
                               'cart__products__product') \
             .order_by('-create_date')
@@ -80,3 +94,25 @@ class ProfileView(LoginRequiredMixin, CartMixin, View):
             'categories': Category.objects.all()
         }
         return render(request, 'profil/profil.html', context)
+
+    def test(self):
+        today = datetime.date.today()
+        new_customer = User.objects.filter(date_joined__month=today.month)
+        number_all_product_by_category = Category.objects.annotate(Count('product')).values('name', 'product__count')
+        number_of_orders_per_month = Order.objects.filter(order_date__month=today.month)
+
+        # send_mail(
+        #     'Статистика',
+        #     f'Кількість нових покупців -> {new_customer.count()}\n'
+        #     f'Кількість продуктів по категоріям:\n'
+        #     f'\tТелефони -> {number_all_product_by_category[2]["product__count"]}\n'
+        #     f'\tКомп`ютери -> {number_all_product_by_category[1]["product__count"]}\n'
+        #     f'\tНоутбуки -> {number_all_product_by_category[0]["product__count"]}\n'
+        #     f'\tПланшети -> {number_all_product_by_category[3]["product__count"]}\n'
+        #     f'Кількість оформлених замовлень -> {number_of_orders_per_month.aggregate(Count("cart"))["cart__count"]}\n'
+        #     f'Кількість проданих товарів за цей місяць-> '
+        #     f'{number_of_orders_per_month.aggregate(Count("cart__products"))["cart__products__count"]}',
+        #     'vzaharkiv28@gmail.com',
+        #     ['vzaharkiv28@gmail.com'],
+        #     fail_silently=False
+        # )

@@ -1,10 +1,12 @@
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 <ul style="list-style: none;">
-    <li class="title-filter" onclick="showFilter('pb', 'pimg')" style="margin-bottom: -2px">Бренд
+    <li class="title-filter" onclick="showFilter('pb', 'pimg')" style="margin-bottom: -2px">{% trans 'Бренд' %}
         <img src="{% static 'product/img/strilka.png' %}" id="pimg" width="25px" style="margin-top: -4px; margin-left: -3px;"></li>
     <div class="filter" id="pb">
         {% for b in specifications %}
-            {% if b.spec__key  == 'Бренд' %}
+            {% if b.spec__key  == 'Бренд' or b.spec__key  == 'Brand' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>
@@ -14,12 +16,12 @@
     </div>
     <br>
 
-    <li class="title-filter" onclick="showFilter('db', 'dimg')">Діагональ</li>
+    <li class="title-filter" onclick="showFilter('db', 'dimg')">{% trans 'Діагональ' %}</li>
     <img src="{% static 'product/img/strilka.png' %}" id="dimg" width="25px"
          style="margin-top: -28px; margin-left: 84px;"></li>
     <div class="filter" id="db">
         {% for b in specifications %}
-            {% if b.spec__key  == 'Діагональ' %}
+            {% if b.spec__key  == 'Діагональ екрану' or b.spec__key  == 'Screen diagonal' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>
@@ -29,12 +31,12 @@
     </div>
     <br>
 
-    <li class="title-filter" onclick="showFilter('op', 'oimg')">Оператива</li>
+    <li class="title-filter" onclick="showFilter('op', 'oimg')">{% trans 'Оператива' %}</li>
     <img src="{% static 'product/img/strilka.png' %}" id="oimg" width="25px"
          style="margin-top: -27px; margin-left: 90px;"></li>
     <div class="filter" id="op">
         {% for b in specifications %}
-            {% if b.spec__key  == 'Оператива' %}
+            {% if b.spec__key  == "Оперативна пам'ять" or b.spec__key  == 'RAM' %}
                 <li class="item-filter">
                     <input type="checkbox" name="specification" value="{{ b.spec__value }}">
                     <span>{{ b.spec__value }}</span>

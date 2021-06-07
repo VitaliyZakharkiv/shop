@@ -16,7 +16,7 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
 
     def __str__(self):
-        return self.name
+        return self.name_uk
 
     def get_absolute_url(self):
         return reverse('category_detail', kwargs={'slug': self.slug})
@@ -48,7 +48,7 @@ class Product(models.Model):
 
     def get_brand_product(self):
         return Product.objects.filter(
-            spec__key='Бренд', slug=self.slug).values('spec__value').first()['spec__value']
+            spec__key_uk='Бренд', slug=self.slug).values('spec__value_uk').first()['spec__value_uk']
 
     def get_absolute_url(self):
         return reverse('detail_product', kwargs={'category_id': self.category.slug, 'slug': self.slug})
@@ -102,8 +102,6 @@ class CartProduct(models.Model):
 class Customer(models.Model):
     """Покупець"""
     user = models.ForeignKey(User, verbose_name="Покупець", on_delete=models.CASCADE)
-    phone = models.CharField(max_length=20, blank=True, null=True, verbose_name="Номер")
-    address = models.CharField(max_length=255, blank=True, null=True, verbose_name="Адрес")
     order = models.ManyToManyField('order.Order', related_name='orders_customer', verbose_name="Замовлення")
 
     def __str__(self):

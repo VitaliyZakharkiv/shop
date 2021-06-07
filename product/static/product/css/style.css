@@ -115,23 +115,23 @@
 }
 
 .cart:hover{
-	box-shadow: 2px 3px 3px 0px #808080;
+	box-shadow: 2px 3px 3px 0 #808080;
 	transform: scale(1.03);
 	transition: all .3s ease;
 }
 
 .cart:not(:hover){
-	box-shadow: 0px 0px 0px 0px #808080;
+	box-shadow: 0 0 0 0 #808080;
 	transform: scale(1.00);
 	transition: all .3s ease;
 }
 
-.img-product{
-	/*width: 212px;*/
-	width: 80%;
-	margin-left: 4px;
-	margin-top: 10px;
-	margin-bottom: 13px;
+.img-product {
+    /* width: 212px; */
+    width: 66%;
+    margin-left: 36px;
+    margin-top: 10px;
+    margin-bottom: 13px;
 }
 
 .buy img{

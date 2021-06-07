@@ -3,7 +3,7 @@ const tabsBtn = document.querySelectorAll(".tabs__nav-btn");
 const tabsItems = document.querySelectorAll(".tabs__item");
 
 tabsBtn.forEach(onTabClick);
-
+console.log(11111);
 function onTabClick(item) {
     item.addEventListener("click", function() {
         let currentBtn = item;
@@ -57,6 +57,5 @@ function addReview(arg){
     let elem = document.getElementsByClassName("add-review-form");
     for(var i=0; i<elem.length; i++)elem[i].style.display = arg;
     let elems = document.getElementsByClassName("grey");
-    for(var i=0; i<elems.length; i++)elems[i].style.display = arg;
+    for(var i=0; i<elem.length; i++)elem[i].style.display = arg;
 }
-

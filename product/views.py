@@ -66,11 +66,8 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
 
     def get_auto_name(self):
         """Автоматичні імена, для пошуку"""
-        qs = Product.objects.filter(category__slug=self.category_slug).values('title')
-        name = []
-        for i in qs:
-            name.append(i['title'])
-        return name
+        qs = Product.objects.filter(category__slug=self.category_slug).values_list('title', flat=True)
+        return list(qs)
 
     def get_filter_date(self):
         """Get link"""
@@ -99,7 +96,7 @@ class CategoryDetailView(CommonMixin, CartMixin, DetailView):
 class ProductDetailView(CommonMixin, CartMixin, DetailView):
     """Separate product"""
     model = Product
-    queryset = Product.objects.select_related('category')
+    queryset = Product.objects.select_related('category').prefetch_related('shortimgproduct_set')
     template_name = 'product/detail_product.html'
     context_object_name = "product"
     slug_url_kwarg = "slug"
@@ -128,6 +125,7 @@ class CartView(LoginRequiredMixin, CartMixin, View):
         for i in self.cart.products.all():
             if i.product.quantity_in_stock == 0:
                 self.cart.products.remove(i)
+                i.delete()
         save_cart(self.cart)
         return self.cart
 
@@ -193,6 +191,7 @@ class AddReviewView(LoginRequiredMixin, CreateView):
         form.instance.review = self.request.POST.get('review')
         form.instance.user = self.request.user
         form.instance.product = Product.objects.filter(slug=self.kwargs.get('slug')).first()
+
         return super().form_valid(form)
 
     def get_success_url(self):

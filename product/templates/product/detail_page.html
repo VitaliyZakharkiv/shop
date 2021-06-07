@@ -1,5 +1,7 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 
 {% block title %}{{ category.name }}{% endblock %}
 
@@ -12,7 +14,7 @@
     <div class="content">
         <div class="navigation">
             <div class="nvg">
-                <a href="{% url 'home' %}">Головна</a> /
+                <a href="{% url 'home' %}">{% trans 'Головна' %}</a> /
                 <span class="category-name">{{ category.name }}</span>
             </div>
         </div>
@@ -43,7 +45,7 @@
 
             <div class="sidebar">
                 <form action="{% url 'category' category.slug %}" method="get">
-                    <input type="text" name="q" class="search" id="search" placeholder="Пошук товару...">
+                    <input type="text" name="q" class="search" id="search" placeholder="{% trans 'Пошук товару' %}...">
                     {% if category.slug == "phone" %}
                         {% include 'product/inc/phone_filter.html' %}
                     {% elif category.slug == "notebook" %}

@@ -1,5 +1,7 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load i18n %}
+{% load static i18n %}
 
 {% block title %}{{ product.category.name }} - {{ product.title }}{% endblock %}
 
@@ -15,22 +17,23 @@
         <div class="grey"></div>
         <div class="navigation">
             <div class="nvg">
-                <a href="{% url 'home' %}">Головна</a> /
+                <a href="{% url 'home' %}">{% trans 'Головна' %}</a> /
                 <a href="{% url 'category' product.category.slug %}">{{ product.category.name }}</a> /
                 <span class="category-name">{{ product.title }}</span>
             </div>
         </div>
         <div class="tabs">
             <div class="tabs__nav">
-                <button class="tabs__nav-btn" type="button" data-tab="#tab_1">Найголовніше</button>
-                <button class="tabs__nav-btn" type="button" data-tab="#tab_2">Характеристики</button>
-                <button class="tabs__nav-btn" type="button" data-tab="#tab_3">Відгуки</button>
+                <button class="tabs__nav-btn" type="button" data-tab="#tab_1">{% trans 'Найголовніше' %}</button>
+                <button class="tabs__nav-btn" type="button" data-tab="#tab_2">{% trans 'Характеристики' %}</button>
+                <button class="tabs__nav-btn" type="button" data-tab="#tab_3">{% trans 'Відгуки' %}</button>
             </div>
             <div class="tabs__content">
                 <div class="tabs__item" id="tab_1">
 
                     <div class="slider">
                         {% include 'product/inc/slider.html' %}
+
                         <a class="pref1" onclick="plus1(-1)">&#10094</a>
                         <a class="next1" onclick="plus1(1)">&#10095</a>
 
@@ -41,17 +44,17 @@
 
                         {% if not product.checking_availability_in_stock %}
                             <a href="#"
-                               class="buy" style="background: #b2b2b3">Відсутній</a>
+                               class="buy" style="background: #b2b2b3">{% trans 'Відсутній' %}</a>
                         {% else %}
                             <a href="{% url 'add-to-cart' product_model=product.category.slug slug=product.slug %}"
-                               class="buy">В корзину <img
+                               class="buy">{% trans 'В корзину' %} <img
                                     src="{% static 'product/img/2849824-basket-buy-market-multimedia-shop-shopping-store_107977.png' %}"
                                     height="20" width="20" alt=""></a>
                         {% endif %}
 
-                        <p class="price"><span>Ціна</span> {{ product.price }}грн</p>
+                        <p class="price"><span>{% trans 'Ціна' %}</span> {{ product.price }}{% trans 'грн' %}</p>
 
-                        <p class="brand"><span>Бренд</span> {{ product.get_brand_product }}</p>
+                        <p class="brand"><span>{% trans 'Бренд' %}</span> {{ product.get_brand_product }}</p>
                     </div>
 
                 </div>
@@ -61,7 +64,7 @@
                     </div>
                     <div class="date_product">
                         <div class="charact">
-                            <p>Характеристики:</p>
+                            <p>{% trans 'Характеристики' %}:</p>
                             {% include 'product/inc/specification.html' %}
                         </div>
                     </div>
@@ -93,20 +96,24 @@
                     </div>
                     <div class="add-review-form">
                         <div class="top-model">
-                            <p class="model-title">Відгук</p>
+                            <p class="model-title">{% trans 'Відгук' %}</p>
                             <p onclick="addReview('none')" class="model-exit">&#10006;</p>
                         </div>
                         <form action="{% url 'add-review' product_model=product.category.slug slug=product.slug %}"
                               method="post">
                             {% csrf_token %}
                             {{ form.review }}<br>
-                            <input type="submit" value="Залишити відгук">
+                            <input type="submit" value="{% trans 'Залишити відгук' %}">
                         </form>
                     </div>
 
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script src="{% static 'product/js/detail.js' %}"></script>
+
         <script type="text/javascript" src="{% static 'product/js/detail.js' %}"></script>
 
     </div>

@@ -1,0 +1,43 @@
+center{
+    margin-top: 22%;
+}
+
+.action{
+    padding: 13px 30px;
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    transition: background .3s ease;
+}
+
+.action:first-child{
+    margin-right: 15px;
+    background: #2B6FB6;
+}
+
+.action:last-child{
+    background: #006b1b;
+}
+
+.action:first-child:hover {
+    background: #003e80;
+}
+
+.action:last-child:hover{
+    background: #014a12;
+}
+
+@media (max-width: 700px) {
+    center{
+        margin-left: 62px;
+    }
+}
+
+@media (max-width: 423px) {
+    .action{
+        margin-top: 15px;
+        display: block;
+    }
+}
